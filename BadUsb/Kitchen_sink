@@ -1,7 +1,41 @@
+REM                 _..--+~/@-~--.
+REM             _-=~      (  .   "}
+REM          _-~     _.--=.\ \""""
+REM        _~      _-       \ \_\
+REM       =      _=          '--'
+REM      '      =                             .
+REM     :      :       ____                   '=_. ___
+REM___  |      ;                            ____ '~--.~.
+REM     ;      ;                               _____  } |
+REM  ___=       \ ___ __     __..-...__           ___/__/__
+REM     :        =_     _.-~~          ~~--.__
+REM_____ \         ~-+-~                   ___~=_______
+REM     ~@#~~ == ...______ __ ___ _--~~--_
+REM                                                    =
+REM██████╗ ███████╗ █████╗ ███╗   ██╗ ██████╗██╗  ██╗███████╗███████╗ ██████╗ ██╗ ██████╗ █████╗ 
+REM██╔══██╗██╔════╝██╔══██╗████╗  ██║██╔════╝██║  ██║██╔════╝╚══███╔╝██╔════╝███║██╔════╝██╔══██╗
+REM██████╔╝███████╗███████║██╔██╗ ██║██║     ███████║█████╗    ███╔╝ ██║     ╚██║███████╗╚██████║
+REM██╔══██╗╚════██║██╔══██║██║╚██╗██║██║     ██╔══██║██╔══╝   ███╔╝  ██║      ██║██╔═══██╗╚═══██║
+REM██║  ██║███████║██║  ██║██║ ╚████║╚██████╗██║  ██║███████╗███████╗╚██████╗ ██║╚██████╔╝█████╔╝
+REM╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝ ╚═════╝ ╚════╝ 
 REM Version 1
 REM OS: Any
 REM AUTHOR: RSanchezC169
-REM Description: This is not for any real practical use there is no end goal to this.
+REM Description: This script is designed for use with a Flipper Zero and performs basic keystroke actions to test and observe random outcomes. 
+REM               It automatically generates a series of keystrokes, mimicking user input, and can be used to explore and understand how different systems and applications respond to various automated interactions. 
+REM               This tool is not intended for any real practical use and does not have a specific end goal. 
+REM               It simply goes through every basic keystroke arbitrarily, providing a unique way to experiment with keystroke-driven processes.
+REM               Sometimes you just want to press every key on the keyboard.
+REM Flipper Zero FirmWare mntm-001 https://momentum-fw.dev/update/
+
+
+
+
+
+
+
+
+
 
 GUI A
 DELAY 300
@@ -317,4 +351,3 @@ DELAY 300
 CTRL SHIFT ESCAPE
 DELAY 300
 ALT SHIFT ENTER
-DELAY 300
