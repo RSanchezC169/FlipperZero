@@ -1,0 +1,263 @@
+REM ##################################################################################################################################################################
+REM ##################################################################################################################################################################
+REM                  _..--+~/@-~--.
+REM              _-=~      (  .   "}
+REM           _-~     _.--=.\ \""""
+REM         _~      _-       \ \_\
+REM        =      _=          '--'
+REM       '      =                             .
+REM      :      :       ____                   '=_. ___
+REM ___  |      ;                            ____ '~--.~.
+REM      ;      ;                               _____  } |
+REM   ___=       \ ___ __     __..-...__           ___/__/__
+REM      :        =_     _.-~~          ~~--.__
+REM _____ \         ~-+-~                   ___~=_______
+REM      ~@#~~ == ...______ __ ___ _--~~--_
+REM                                                     =
+REM ██████╗ ███████╗ █████╗ ███╗   ██╗ ██████╗██╗  ██╗███████╗███████╗ ██████╗ ██╗ ██████╗ █████╗ 
+REM ██╔══██╗██╔════╝██╔══██╗████╗  ██║██╔════╝██║  ██║██╔════╝╚══███╔╝██╔════╝███║██╔════╝██╔══██╗
+REM ██████╔╝███████╗███████║██╔██╗ ██║██║     ███████║█████╗    ███╔╝ ██║     ╚██║███████╗╚██████║
+REM ██╔══██╗╚════██║██╔══██║██║╚██╗██║██║     ██╔══██║██╔══╝   ███╔╝  ██║      ██║██╔═══██╗╚═══██║
+REM ██║  ██║███████║██║  ██║██║ ╚████║╚██████╗██║  ██║███████╗███████╗╚██████╗ ██║╚██████╔╝█████╔╝
+REM ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═╝ ╚═════╝ ╚════╝ 
+REM Script Version: 1
+REM OS Version Script was written on: Microsoft Windows 11 Pro : 10.0.25100 Build 26100
+REM PSVersion 5.1.26100.2161 : PSEdition Desktop : Build Version 10.0.26100.2161
+REM Description of Script:
+REM
+REM ##################################################################################################################################################################
+REM ================================Beginning==========================================================================================================================
+REM ##################################################################################################################################################################
+REM ##################################################################################################################################################################
+REM ================================Open PowerShell===================================================================================================================
+REM ##################################################################################################################################################################
+DELAY 2000
+GUI r
+DELAY 100
+STRING powershell Start-Process powershell -verb runAs
+DELAY 500
+ENTER
+DELAY 4000
+LEFT
+ENTER
+DELAY 4000
+REM ##################################################################################################################################################################
+REM ================================Clear PowerShell Host=============================================================================================================
+REM ##################################################################################################################################################################
+STRING TRY{ Clear-Host }CATCH{Write-Error "Could not clear host"}
+ENTER
+DELAY 500
+REM ##################################################################################################################################################################
+REM ================================Maximize PowerShell Window========================================================================================================
+REM ##################################################################################################################################################################
+STRING TRY{
+SHIFT ENTER
+DELAY 500
+STRING Add-Type -TypeDefinition @"
+SHIFT ENTER
+DELAY 500
+STRING     using System;
+SHIFT ENTER
+DELAY 500
+STRING     using System.Runtime.InteropServices;
+SHIFT ENTER
+DELAY 500
+STRING     public class User32 {
+SHIFT ENTER
+DELAY 500
+STRING         [DllImport("user32.dll")]
+SHIFT ENTER
+DELAY 500
+STRING         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+SHIFT ENTER
+DELAY 500
+STRING     }
+SHIFT ENTER
+DELAY 500
+STRING "@
+SHIFT ENTER
+DELAY 500
+STRING # Get the main handle of the current PowerShell process
+SHIFT ENTER
+DELAY 500
+STRING $handle = (Get-Process -ID $PID).MainWindowHandle
+SHIFT ENTER
+DELAY 500
+STRING # Maximize the window (nCmdShow value for maximize)
+SHIFT ENTER
+DELAY 500
+STRING [User32]::ShowWindow($handle, 3)  # 3 corresponds to SW_MAXIMIZE
+SHIFT ENTER
+DELAY 500
+STRING }CATCH{Write-Waring "Could not maximize Powershell Window"}
+ENTER
+DELAY 500
+ENTER
+DELAY 500
+STRING TRY{ Clear-Host }CATCH{Write-Error "Could not clear host"}
+ENTER
+DELAY 500
+ENTER
+DELAY 500
+REM ##################################################################################################################################################################
+REM ================================Write Script to run for logo======================================================================================================
+REM ##################################################################################################################################################################
+STRING # Define the colors available in PowerShell
+SHIFT ENTER
+DELAY 500
+STRING $colors = [enum]::GetValues([System.ConsoleColor])
+SHIFT ENTER
+DELAY 500
+STRING # Function to output text with different foreground colors
+SHIFT ENTER
+DELAY 500
+STRING function Write-ColorText {
+SHIFT ENTER
+DELAY 500
+STRING     param (
+SHIFT ENTER
+DELAY 500
+STRING         [string]$text
+SHIFT ENTER
+DELAY 500
+STRING     )
+SHIFT ENTER
+DELAY 500
+STRING     foreach ($color in $colors) {
+SHIFT ENTER
+DELAY 500
+STRING         Clear-Host
+SHIFT ENTER
+DELAY 500
+STRING         $Host.UI.RawUI.ForegroundColor = $color
+SHIFT ENTER
+DELAY 500
+STRING         Write-Host $text
+SHIFT ENTER
+DELAY 500
+STRING         Start-Sleep -Milliseconds 500
+SHIFT ENTER
+DELAY 500
+STRING     }
+SHIFT ENTER
+DELAY 500
+STRING }
+SHIFT ENTER
+DELAY 500
+STRING # Text to output
+SHIFT ENTER
+DELAY 500
+STRING $text = @"
+SHIFT ENTER
+DELAY 500
+STRING                  _..--+~/@-~--.
+SHIFT ENTER
+DELAY 500
+STRING              _-=~      (  .   "}"
+SHIFT ENTER
+DELAY 500
+STRING           _-~     _.--=.\ \"""""
+SHIFT ENTER
+DELAY 500
+STRING         _~      _-       \ \_\
+SHIFT ENTER
+DELAY 500
+STRING        =      _=          '--'
+SHIFT ENTER
+DELAY 500
+STRING       '      =                             .
+SHIFT ENTER
+DELAY 500
+STRING      :      :       ____                   '=_. ___
+SHIFT ENTER
+DELAY 500
+STRING ___  |      ;                            ____ '~--.~.
+SHIFT ENTER
+DELAY 500
+STRING      ;      ;                               _____  } |
+SHIFT ENTER
+DELAY 500
+STRING   ___=       \ ___ __     __..-...__           ___/__/__
+SHIFT ENTER
+DELAY 500
+STRING      :        =_     _.-~~          ~~--.__
+SHIFT ENTER
+DELAY 500
+STRING _____ \         ~-+-~                   ___~=_______
+SHIFT ENTER
+DELAY 500
+STRING      ~@#~~ == ...______ __ ___ _--~~--_
+SHIFT ENTER
+DELAY 500
+STRING                                                     =
+SHIFT ENTER
+DELAY 500
+STRING RRRRRRRRRRRRRRRRR      SSSSSSSSSSSSSSS                                                       hhhhhhh                                                          CCCCCCCCCCCCC  1111111           66666666  999999999     
+SHIFT ENTER
+DELAY 500
+STRING R::::::::::::::::R   SS:::::::::::::::S                                                      h:::::h                                                       CCC::::::::::::C 1::::::1          6::::::6 99:::::::::99   
+SHIFT ENTER
+DELAY 500
+STRING R::::::RRRRRR:::::R S:::::SSSSSS::::::S                                                      h:::::h                                                     CC:::::::::::::::C1:::::::1         6::::::699:::::::::::::99 
+SHIFT ENTER
+DELAY 500
+STRING RR:::::R     R:::::RS:::::S     SSSSSSS                                                      h:::::h                                                    C:::::CCCCCCCC::::C111:::::1        6::::::69::::::99999::::::9
+SHIFT ENTER
+DELAY 500
+STRING   R::::R     R:::::RS:::::S              aaaaaaaaaaaaa  nnnn  nnnnnnnn        cccccccccccccccch::::h hhhhh           eeeeeeeeeeee    zzzzzzzzzzzzzzzzz C:::::C       CCCCCC   1::::1       6::::::6 9:::::9     9:::::9
+SHIFT ENTER
+DELAY 500
+STRING   R::::R     R:::::RS:::::S              a::::::::::::a n:::nn::::::::nn    cc:::::::::::::::ch::::hh:::::hhh      ee::::::::::::ee  z:::::::::::::::zC:::::C                 1::::1      6::::::6  9:::::9     9:::::9
+SHIFT ENTER
+DELAY 500
+STRING   R::::RRRRRR:::::R  S::::SSSS           aaaaaaaaa:::::an::::::::::::::nn  c:::::::::::::::::ch::::::::::::::hh   e::::::eeeee:::::eez::::::::::::::z C:::::C                 1::::1     6::::::6    9:::::99999::::::9
+SHIFT ENTER
+DELAY 500
+STRING   R:::::::::::::RR    SS::::::SSSSS               a::::ann:::::::::::::::nc:::::::cccccc:::::ch:::::::hhh::::::h e::::::e     e:::::ezzzzzzzz::::::z  C:::::C                 1::::l    6::::::::6666699::::::::::::::9
+SHIFT ENTER
+DELAY 500
+STRING   R::::RRRRRR:::::R     SSS::::::::SS      aaaaaaa:::::a  n:::::nnnn:::::nc::::::c     ccccccch::::::h   h::::::he:::::::eeeee::::::e      z::::::z   C:::::C                 1::::l   6::::::::::::::6699999::::::::9 
+SHIFT ENTER
+DELAY 500
+STRING   R::::R     R:::::R       SSSSSS::::S   aa::::::::::::a  n::::n    n::::nc:::::c             h:::::h     h:::::he:::::::::::::::::e      z::::::z    C:::::C                 1::::l   6::::::66666:::::6    9::::::9  
+SHIFT ENTER
+DELAY 500
+STRING   R::::R     R:::::R            S:::::S a::::aaaa::::::a  n::::n    n::::nc:::::c             h:::::h     h:::::he::::::eeeeeeeeeee      z::::::z     C:::::C                 1::::l   6:::::6     6:::::6  9::::::9   
+SHIFT ENTER
+DELAY 500
+STRING   R::::R     R:::::R            S:::::Sa::::a    a:::::a  n::::n    n::::nc::::::c     ccccccch:::::h     h:::::he:::::::e              z::::::z       C:::::C       CCCCCC   1::::l   6:::::6     6:::::6 9::::::9    
+SHIFT ENTER
+DELAY 500
+STRING RR:::::R     R:::::RSSSSSSS     S:::::Sa::::a    a:::::a  n::::n    n::::nc:::::::cccccc:::::ch:::::h     h:::::he::::::::e            z::::::zzzzzzzz  C:::::CCCCCCCC::::C111::::::1116::::::66666::::::69::::::9    
+SHIFT ENTER
+DELAY 500 
+STRING R::::::R     R:::::RS::::::SSSSSS:::::Sa:::::aaaa::::::a  n::::n    n::::n c:::::::::::::::::ch:::::h     h:::::h e::::::::eeeeeeee   z::::::::::::::z   CC:::::::::::::::C1::::::::::1 66:::::::::::::669::::::9  
+SHIFT ENTER
+DELAY 500    
+STRING R::::::R     R:::::RS:::::::::::::::SS  a::::::::::aa:::a n::::n    n::::n  cc:::::::::::::::ch:::::h     h:::::h  ee:::::::::::::e  z:::::::::::::::z     CCC::::::::::::C1::::::::::1   66:::::::::66 9::::::9      
+SHIFT ENTER
+DELAY 500 
+STRING RRRRRRRR     RRRRRRR SSSSSSSSSSSSSSS     aaaaaaaaaa  aaaa nnnnnn    nnnnnn    cccccccccccccccchhhhhhh     hhhhhhh    eeeeeeeeeeeeee  zzzzzzzzzzzzzzzzz        CCCCCCCCCCCCC111111111111     666666666  99999999 
+SHIFT ENTER
+DELAY 500
+SHIFT ENTER
+DELAY 500
+STRING "@
+SHIFT ENTER
+DELAY 500 
+STRING # Infinite loop to output the text with different colors
+SHIFT ENTER
+DELAY 500
+STRING while ($true) {
+SHIFT ENTER
+DELAY 500
+STRING     Write-ColorText -text $text
+SHIFT ENTER
+DELAY 500
+STRING }
+ENTER
+DELAY 500
+REM ##################################################################################################################################################################
+REM ================================End===============================================================================================================================
+REM ##################################################################################################################################################################
+
