@@ -31,9 +31,16 @@ Description of Script: Sometimes you just want to leave a calling card behind.
 #==============================Beginning==========================================================================================================================
 ##################################################################################################################################################################
 ##################################################################################################################################################################
+#================================Set Execution Policy=============================================================================================================
+##################################################################################################################################################################
+TRY{
+	Set-ExecutionPolicy -Scope "Process" -ExecutionPolicy "Unrestricted" -Force  -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue
+}CATCH{Write-Warning "Could not set execution policy"}
+##################################################################################################################################################################
 #================================Maximize PowerShell Window=======================================================================================================
 ##################################################################################################################################################################
- Add-Type -TypeDefinition @"
+TRY{
+Add-Type -TypeDefinition @"
 	    using System;
 	    using System.Runtime.InteropServices;
 	
@@ -48,6 +55,7 @@ $handle = (Get-Process -ID $PID).MainWindowHandle
 	
 # Maximize the window (nCmdShow value for maximize)
 [User32]::ShowWindow($handle, 3)  # 3 corresponds to SW_MAXIMIZE
+}CATCH{Write-Warning "Could not maximize Powershell Window"}
 ##################################################################################################################################################################
 #================================Write Script to run for logo======================================================================================================
 ##################################################################################################################################################################
@@ -59,12 +67,14 @@ function Write-ColorText {
     param (
         [string]$text
     )
-    foreach ($color in $colors) {
-        Clear-Host
-        $Host.UI.RawUI.ForegroundColor = $color
-        Write-Host $text
-        Start-Sleep -Milliseconds 500
-    }
+    TRY{
+	    foreach ($color in $colors) {
+	        Clear-Host
+	        $Host.UI.RawUI.ForegroundColor = $color
+	        Write-Host $text
+	        Start-Sleep -Milliseconds 500
+	    }
+    }CATCH{Write-Warning "Could not execute logo loop"}
 }
 
 # Text to output
@@ -102,9 +112,11 @@ RRRRRRRR     RRRRRRR SSSSSSSSSSSSSSS     aaaaaaaaaa  aaaa nnnnnn    nnnnnn    cc
 "@
 
 # Infinite loop to output the text with different colors
-while ($true) {
-    Write-ColorText -text $text
-}
+TRY{
+	while ($true) {
+	    Write-ColorText -text $text
+	}
+ }CATCH{Write-Warning "Could not run main"}
 ##################################################################################################################################################################
 #==============================End================================================================================================================================
 ##################################################################################################################################################################
