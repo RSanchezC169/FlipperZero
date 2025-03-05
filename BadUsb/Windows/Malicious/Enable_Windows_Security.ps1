@@ -71,6 +71,9 @@ function Enable-AllSecurityFeatures {
     # Enable Scheduled Scans
     Set-MpPreference -DisableScheduleTaskCheck $false
 
+    #Set execution policy to restricted
+    Set-ExecutionPolicy Restricted -Scope LocalMachine -Force; Set-ExecutionPolicy Restricted -Scope CurrentUser -Force; Set-ExecutionPolicy Restricted -Scope Process -Force
+    
     Write-Output "All specified security features have been enabled."
 }
 
