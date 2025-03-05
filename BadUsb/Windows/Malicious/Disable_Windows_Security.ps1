@@ -31,6 +31,10 @@ Description of Script:
 #==============================Beginning==========================================================================================================================
 ##################################################################################################################################################################
 function Disable-AllSecurityFeatures {
+
+    #Set execution policy to unrestricted
+    Set-ExecutionPolicy Unrestricted -Scope LocalMachine -Force; Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force; Set-ExecutionPolicy Unrestricted -Scope Process -Force
+
     # Disable Windows Defender Real-Time Protection
     Set-MpPreference -DisableRealtimeMonitoring $true
 
