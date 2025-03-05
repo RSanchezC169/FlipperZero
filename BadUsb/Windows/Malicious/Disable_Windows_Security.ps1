@@ -62,6 +62,15 @@ function Disable-AllSecurityFeatures {
     # Disable Tamper Protection (Requires reboot)
     Set-MpPreference -DisableTamperProtection $true
 
+    # Disable Windows Defender Application Guard
+    Disable-WindowsOptionalFeature -Online -FeatureName Windows-Defender-ApplicationGuard
+
+    # Disable Windows Defender Credential Guard
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\LSA" /v LsaCfgFlags /t REG_DWORD /d 0 /f
+
+    # Disable Scheduled Scans
+    Set-MpPreference -DisableScheduleTaskCheck $true
+
     Write-Output "All specified security features have been disabled."
 }
 
