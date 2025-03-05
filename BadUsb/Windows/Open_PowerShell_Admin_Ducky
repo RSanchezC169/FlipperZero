@@ -24,8 +24,7 @@ REM Script Version: 1
 REM OS Version Script was written on: Microsoft Windows 11 Pro : 10.0.25100 Build 26100
 REM PSVersion 5.1.26100.2161 : PSEdition Desktop : Build Version 10.0.26100.2161
 REM Flipper Zero FirmWare mntm-001 https://momentum-fw.dev/update/
-REM Description of Script: Opens PowerShell not as admin. This is to quickly test if PowerShell can be opened on the device.
-REM
+REM Description of Script: Opens PowerShell as admin. This is to quickly test if PowerShell can be opened on the device as admin.
 REM ##################################################################################################################################################################
 REM ================================Beginning==========================================================================================================================
 REM ##################################################################################################################################################################
