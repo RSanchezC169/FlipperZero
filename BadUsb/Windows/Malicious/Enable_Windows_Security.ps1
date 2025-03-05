@@ -73,7 +73,28 @@ function Enable-AllSecurityFeatures {
 
     #Set execution policy to restricted
     Set-ExecutionPolicy Restricted -Scope LocalMachine -Force; Set-ExecutionPolicy Restricted -Scope CurrentUser -Force; Set-ExecutionPolicy Restricted -Scope Process -Force
+
+    # Get all current exclusions
+    $preferences = Get-MpPreference
     
+    # Remove all exclusion paths
+    foreach ($path in $preferences.ExclusionPath) {
+        Remove-MpPreference -ExclusionPath $path
+    }
+    
+    # Remove all exclusion processes
+    foreach ($process in $preferences.ExclusionProcess) {
+        Remove-MpPreference -ExclusionProcess $process
+    }
+    
+    # Remove all exclusion extensions
+    foreach ($extension in $preferences.ExclusionExtension) {
+        Remove-MpPreference -ExclusionExtension $extension
+    }
+    
+    Write-Output "all exclusions have been removed."
+
+
     Write-Output "All specified security features have been enabled."
 }
 
