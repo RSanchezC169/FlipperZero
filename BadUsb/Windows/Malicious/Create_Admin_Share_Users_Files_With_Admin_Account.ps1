@@ -43,7 +43,7 @@ function New-AdminAccount {
         [string]$description = "Local Administrator Account"
     )
 
-    # Set the password to 123456789
+    # Set the password to a fixed value
     $securePassword = ConvertTo-SecureString "123456789" -AsPlainText -Force
 
     # Create the new local user account
@@ -65,7 +65,7 @@ function New-AdminAccount {
         $userProfilePath = Join-Path -Path $usersPath -ChildPath $user.Name
 
         # Share the user's profile folder with the new admin account
-        icacls $userProfilePath /grant $username:(OI)(CI)F
+        icacls $userProfilePath /grant "${username}:(OI)(CI)F"
         Write-Output "Granted full control of $userProfilePath to $username."
     }
 
