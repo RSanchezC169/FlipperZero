@@ -32,6 +32,8 @@ Prompt the user to enter a password for the new admin account.
 Create a new admin account with the specified username and entered password.
 Add the new account to the Administrators group.
 Grant full control of other user profiles' files and folders to the new admin account.
+
+NOTE: Make sure to change the name of the admin account and password. It defaults to FlipperAdmin as the name and the password is 123456789.
 #>
 ##################################################################################################################################################################
 #==============================Beginning==========================================================================================================================
