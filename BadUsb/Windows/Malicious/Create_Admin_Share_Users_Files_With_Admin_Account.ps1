@@ -101,7 +101,7 @@ function New-AdminAccount {
 
     # Output the computer name and IP address for remote access
     $computerName = (Get-WmiObject -Class Win32_ComputerSystem).Name
-    $ipAddress = (Invoke-WebRequest -UseBasicParsing -uri "http://ifconfig.me/").Content
+    $ipAddress = (Resolve-DnsName -Name myip.opendns.com -Server resolver1.opendns.com).IPAddress
     Write-Output "The computer name is '$computerName'. The IP address is '$ipAddress'. Use this name or IP address to remotely access this computer."
 }
 
