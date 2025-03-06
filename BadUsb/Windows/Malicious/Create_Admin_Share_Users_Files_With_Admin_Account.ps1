@@ -89,9 +89,12 @@ function New-AdminAccount {
     Start-Service -Name "TermService"
     Write-Output "Remote Desktop Services is running."
 
-    # Check if Network Level Authentication is enabled and disable it for easier access
-    Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Value 0
-    Write-Output "Network Level Authentication has been disabled."
+    # Ensure RDP is enabled in the system settings
+    $RDPSettings = Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp'
+    if ($RDPSettings.UserAuthentication -ne 0) {
+        Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name 'UserAuthentication' -Value 0
+        Write-Output "User Authentication has been disabled for Remote Desktop."
+    }
 
     # Output the computer name for remote access
     $computerName = (Get-WmiObject -Class Win32_ComputerSystem).Name
@@ -99,7 +102,7 @@ function New-AdminAccount {
 }
 
 # Example usage
-New-AdminAccount -username "NewAdminUser4"
+New-AdminAccount -username "NewAdminUser5"
 ##################################################################################################################################################################
 #==============================End================================================================================================================================
 ##################################################################################################################################################################
