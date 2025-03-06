@@ -80,9 +80,13 @@ function New-AdminAccount {
     Write-Output "Remote Desktop has been allowed through the firewall."
 
     # Ensure Remote Desktop Services is running
-    Get-Service -Name "TermService" | Set-Service -StartupType Automatic
+    Set-Service -Name "TermService" -StartupType Automatic
     Start-Service -Name "TermService"
     Write-Output "Remote Desktop Services is running."
+
+    # Check if Network Level Authentication is enabled and disable it for easier access
+    Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Value 0
+    Write-Output "Network Level Authentication has been disabled."
 
     # Output the computer name for remote access
     $computerName = (Get-WmiObject -Class Win32_ComputerSystem).Name
@@ -90,7 +94,7 @@ function New-AdminAccount {
 }
 
 # Example usage
-New-AdminAccount -username "NewAdminUser1"
+New-AdminAccount -username "NewAdminUser2"
 ##################################################################################################################################################################
 #==============================End================================================================================================================================
 ##################################################################################################################################################################
