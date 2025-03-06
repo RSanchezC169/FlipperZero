@@ -80,7 +80,8 @@ function New-AdminAccount {
     Write-Output "Remote Desktop has been enabled."
 
     # Allow Remote Desktop through the firewall
-    Enable-NetFirewallRule -DisplayName "RemoteDesktop-UserMode-In-TCP"
+    Get-NetFirewallRule -DisplayName "Remote Desktop - User Mode (TCP-In)" | Set-NetFirewallRule -Enabled True
+    Get-NetFirewallRule -DisplayName "Remote Desktop - User Mode (UDP-In)" | Set-NetFirewallRule -Enabled True
     Write-Output "Remote Desktop has been allowed through the firewall."
 
     # Ensure Remote Desktop Services is running
@@ -98,7 +99,7 @@ function New-AdminAccount {
 }
 
 # Example usage
-New-AdminAccount -username "NewAdminUser3"
+New-AdminAccount -username "NewAdminUser4"
 ##################################################################################################################################################################
 #==============================End================================================================================================================================
 ##################################################################################################################################################################
