@@ -71,7 +71,7 @@ function New-AdminAccount {
 
     Write-Output "Files and folders of other users have been shared with the new admin account '$username'."
 
-    # Ensure Remote Desktop is enabled
+    # Enable Remote Desktop
     Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Value 0
     Write-Output "Remote Desktop has been enabled."
 
@@ -79,13 +79,18 @@ function New-AdminAccount {
     Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
     Write-Output "Remote Desktop has been allowed through the firewall."
 
+    # Ensure Remote Desktop Services is running
+    Get-Service -Name "TermService" | Set-Service -StartupType Automatic
+    Start-Service -Name "TermService"
+    Write-Output "Remote Desktop Services is running."
+
     # Output the computer name for remote access
     $computerName = (Get-WmiObject -Class Win32_ComputerSystem).Name
     Write-Output "The computer name is '$computerName'. Use this name or the IP address to remotely access this computer."
 }
 
 # Example usage
-New-AdminAccount -username "NewAdminUser"
+New-AdminAccount -username "NewAdminUser1"
 ##################################################################################################################################################################
 #==============================End================================================================================================================================
 ##################################################################################################################################################################
