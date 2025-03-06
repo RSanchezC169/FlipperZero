@@ -53,9 +53,13 @@ function New-AdminAccount {
     Add-LocalGroupMember -Group "Administrators" -Member $username
     Write-Output "Admin account '$username' created and added to the Administrators group."
 
-    # Add the new user to the Remote Desktop Users group
-    Add-LocalGroupMember -Group "Remote Desktop Users" -Member $username
-    Write-Output "Admin account '$username' added to the Remote Desktop Users group."
+    # Ensure the "Remote Desktop Users" group exists and add the new user to it
+    if (Get-LocalGroup -Name "Remote Desktop Users" -ErrorAction SilentlyContinue) {
+        Add-LocalGroupMember -Group "Remote Desktop Users" -Member $username
+        Write-Output "Admin account '$username' added to the Remote Desktop Users group."
+    } else {
+        Write-Output "The 'Remote Desktop Users' group was not found."
+    }
 
     # Share other users' files and folders with the new admin account
     $usersPath = "C:\Users"
@@ -76,7 +80,7 @@ function New-AdminAccount {
     Write-Output "Remote Desktop has been enabled."
 
     # Allow Remote Desktop through the firewall
-    Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+    Enable-NetFirewallRule -DisplayName "RemoteDesktop-UserMode-In-TCP"
     Write-Output "Remote Desktop has been allowed through the firewall."
 
     # Ensure Remote Desktop Services is running
@@ -94,7 +98,7 @@ function New-AdminAccount {
 }
 
 # Example usage
-New-AdminAccount -username "NewAdminUser2"
+New-AdminAccount -username "NewAdminUser3"
 ##################################################################################################################################################################
 #==============================End================================================================================================================================
 ##################################################################################################################################################################
