@@ -1,1 +1,11 @@
-x
+The scripts I’ve created serve as diagnostic tools to identify and test the various ways to open PowerShell on a device. 
+These scripts do not execute or trigger other scripts but are designed specifically to evaluate the accessibility of PowerShell through different methods. 
+This approach ensures that if one method of opening PowerShell is disabled or restricted, other potential avenues can be tested to determine which ones remain available. 
+The key methods these scripts focus on include launching PowerShell via the Windows Run dialog, File Explorer, Task Manager, and the Start menu.
+
+The primary purpose of these scripts is to help assess the system's configuration and identify possible restrictions or policies that may prevent certain methods of opening PowerShell. 
+For instance, administrative or group policies might block PowerShell from being accessed through the Start menu, but the Run dialog or File Explorer may still provide a functional pathway. 
+By testing each method independently, these scripts make it easy to pinpoint which methods are operational and which ones are restricted.
+
+This functionality is especially useful in scenarios where a script or administrative command needs to be run on the device, but the standard method of launching PowerShell is unavailable. 
+These scripts allow for a systematic examination of the system, ensuring that you can always find an accessible method to open PowerShell and proceed with executing necessary commands or scripts.
