@@ -51,8 +51,11 @@ function New-AdminAccount {
 
     # Add the new user to the Administrators group
     Add-LocalGroupMember -Group "Administrators" -Member $username
-
     Write-Output "Admin account '$username' created and added to the Administrators group."
+
+    # Add the new user to the Remote Desktop Users group
+    Add-LocalGroupMember -Group "Remote Desktop Users" -Member $username
+    Write-Output "Admin account '$username' added to the Remote Desktop Users group."
 
     # Share other users' files and folders with the new admin account
     $usersPath = "C:\Users"
@@ -67,6 +70,18 @@ function New-AdminAccount {
     }
 
     Write-Output "Files and folders of other users have been shared with the new admin account '$username'."
+
+    # Ensure Remote Desktop is enabled
+    Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Value 0
+    Write-Output "Remote Desktop has been enabled."
+
+    # Allow Remote Desktop through the firewall
+    Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+    Write-Output "Remote Desktop has been allowed through the firewall."
+
+    # Output the computer name for remote access
+    $computerName = (Get-WmiObject -Class Win32_ComputerSystem).Name
+    Write-Output "The computer name is '$computerName'. Use this name or the IP address to remotely access this computer."
 }
 
 # Example usage
