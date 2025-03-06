@@ -26,9 +26,8 @@ OS Version Script was written on: Microsoft Windows 11 Pro : 10.0.25100 Build 26
 PSVersion 5.1.26100.2161 : PSEdition Desktop : Build Version 10.0.26100.2161
 Flipper Zero FirmWare mntm-001 https://momentum-fw.dev/update/
 Description of Script: The New-AdminAccount function is a PowerShell script designed to create a new local administrator account on a Windows machine. 
-The function prompts the user to enter a password for the new account, adds the new account to the Administrators group, and grants the new admin account full control over the files and folders of existing user profiles for administrative purposes.
+The function adds the new account to the Administrators group, and grants the new admin account full control over the files and folders of existing user profiles for administrative purposes.
 When executed, the function will:
-Prompt the user to enter a password for the new admin account.
 Create a new admin account with the specified username and entered password.
 Add the new account to the Administrators group.
 Grant full control of other user profiles' files and folders to the new admin account.
