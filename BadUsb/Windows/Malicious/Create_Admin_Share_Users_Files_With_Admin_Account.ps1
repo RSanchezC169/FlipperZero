@@ -43,8 +43,8 @@ function New-AdminAccount {
         [string]$description = "Local Administrator Account"
     )
 
-    # Prompt the user for the password
-    $securePassword = Read-Host -Prompt "Enter the password for the new admin account" -AsSecureString
+    # Set the password to 123456789
+    $securePassword = ConvertTo-SecureString "123456789" -AsPlainText -Force
 
     # Create the new local user account
     New-LocalUser -Name $username -Password $securePassword -FullName $fullName -Description $description
