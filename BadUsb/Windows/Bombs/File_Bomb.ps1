@@ -74,18 +74,20 @@ Function Create-File {
     
     # Output the full path of the new temp file
     #Write-Host "The temp file path is: $fullPath"
+
+   Return $fullPath
 }
 
 Function Copy-FileEveryWhere {
 
-  # Define the root directory path
-  $rootPath = "C:\"
-  
-  # Get all directory paths within the specified root path
-  $allDirectories = Get-DirectoryPaths -RootPath $rootPath
-  
-  # Create the custom file
-  Create-File
+# Define the root directory path
+$rootPath = "C:\"
+
+# Get all directory paths within the specified root path
+$allDirectories = Get-DirectoryPaths -RootPath $rootPath
+
+# Create the custom file
+$fullPath = Create-File
 
     # Loop through each directory in the $allDirectories array
     FOREACH ( $Directory IN $allDirectories) {
