@@ -75,22 +75,20 @@ Function Create-File {
     # Output the full path of the new temp file
     #Write-Host "The temp file path is: $fullPath"
 
-   Return $fullPath
+    # Return the full path of the custom file
+    return $fullPath
 }
 
 Function Copy-FileEveryWhere {
-
-# Define the root directory path
-$rootPath = "C:\"
-
-# Get all directory paths within the specified root path
-$allDirectories = Get-DirectoryPaths -RootPath $rootPath
-
-# Create the custom file
-$fullPath = Create-File
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]$fullPath,
+        [Parameter(Mandatory=$true)]
+        [array]$allDirectories
+    )
 
     # Loop through each directory in the $allDirectories array
-    FOREACH ( $Directory IN $allDirectories) {
+    FOREACH ($Directory IN $allDirectories) {
         # Copy the file to the current directory
         Copy-Item -Path $fullPath -Destination $Directory -Force
         # Output the message indicating the file was copied
@@ -98,8 +96,17 @@ $fullPath = Create-File
     }
 }
 
+# Define the root directory path
+$rootPath = "C:\"
+
+# Get all directory paths within the specified root path
+$allDirectories = Get-DirectoryPaths -RootPath $rootPath
+
+# Create the custom file and get its full path
+$fullPath = Create-File
+
 # Copy the custom file to all directories
-Copy-FileEveryWhere
+Copy-FileEveryWhere -fullPath $fullPath -allDirectories $allDirectories
 ##################################################################################################################################################################
 #==============================End================================================================================================================================
 ##################################################################################################################################################################
