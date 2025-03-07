@@ -47,7 +47,7 @@ function Get-DirectoryPaths {
     $directoryPaths = @()
 
     # Get all directory paths within the specified root path
-    $directoryPaths += Get-ChildItem -Path $RootPath -Recurse -Directory | ForEach-Object { $_.FullName }
+    $directoryPaths += Get-ChildItem -Path $RootPath -Recurse -Directory  -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue | ForEach-Object { $_.FullName }
 
     # Return the array of directory paths
     return $directoryPaths
@@ -90,7 +90,7 @@ Function Copy-FileEveryWhere {
     # Loop through each directory in the $allDirectories array
     FOREACH ($Directory IN $allDirectories) {
         # Copy the file to the current directory
-        Copy-Item -Path $fullPath -Destination $Directory -Force
+        Copy-Item -Path $fullPath -Destination $Directory -Force -ErrorAction SilentlyContinue -WarningAction SilentlyContinue -InformationAction SilentlyContinue
         # Output the message indicating the file was copied
         Write-Host "File was copied to $Directory"
     }
