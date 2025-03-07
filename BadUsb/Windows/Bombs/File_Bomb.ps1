@@ -77,6 +77,16 @@ Function Create-File {
 }
 
 Function Copy-FileEveryWhere {
+
+  # Define the root directory path
+  $rootPath = "C:\"
+  
+  # Get all directory paths within the specified root path
+  $allDirectories = Get-DirectoryPaths -RootPath $rootPath
+  
+  # Create the custom file
+  Create-File
+
     # Loop through each directory in the $allDirectories array
     FOREACH ( $Directory IN $allDirectories) {
         # Copy the file to the current directory
@@ -85,15 +95,6 @@ Function Copy-FileEveryWhere {
         Write-Host "File was copied to $Directory"
     }
 }
-
-# Define the root directory path
-$rootPath = "C:\"
-
-# Get all directory paths within the specified root path
-$allDirectories = Get-DirectoryPaths -RootPath $rootPath
-
-# Create the custom file
-Create-File
 
 # Copy the custom file to all directories
 Copy-FileEveryWhere
